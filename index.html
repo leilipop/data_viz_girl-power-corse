@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Girl Power en Corse · L'Enseignement Supérieur au Féminin</title>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@300;400;600;700;900&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #E91E63;
+            --secondary: #9C27B0;
+            --tertiary: #FF6F00;
+            --dark: #1A1A2E;
+            --light: #FFF8F3;
+            --accent: #FFC107;
+            --gradient-1: linear-gradient(135deg, #E91E63 0%, #9C27B0 100%);
+            --gradient-2: linear-gradient(135deg, #FF6F00 0%, #FFC107 100%);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            overflow-x: hidden;
+            line-height: 1.7;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Crimson Pro', serif;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 2px 30px rgba(233, 30, 99, 0.1);
+            z-index: 1000;
+            padding: 1.2rem 5%;
+            transition: all 0.3s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2.5rem;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-1);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #E91E63 0%, #9C27B0 50%, #7B1FA2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg width="80" height="80" xmlns="http://www.w3.org/2000/svg"><circle cx="40" cy="40" r="3" fill="rgba(255,255,255,0.1)"/></svg>');
+            animation: patternMove 30s linear infinite;
+        }
+
+        @keyframes patternMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(80px, 80px); }
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            text-align: center;
+            color: white;
+            z-index: 2;
+            padding: 2rem;
+            animation: fadeInUp 1.2s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 9vw, 7rem);
+            margin-bottom: 1.5rem;
+            line-height: 1;
+            text-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero .subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.6rem);
+            opacity: 0.95;
+            font-weight: 300;
+            margin-bottom: 3rem;
+        }
+
+        /* Section */
+        .section {
+            padding: 120px 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+        }
+
+        .section-subtitle {
+            font-size: 1.3rem;
+            color: #666;
+            max-width: 750px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* Chart Container */
+        .chart-wrapper {
+            background: white;
+            border-radius: 30px;
+            padding: 4rem;
+            box-shadow: 0 15px 60px rgba(233, 30, 99, 0.1);
+            margin: 4rem 0;
+        }
+
+        .chart-title {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        canvas {
+            max-height: 450px;
+        }
+
+        /* Messages Cards */
+        .messages-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin: 4rem 0;
+        }
+
+        .message-card {
+            background: white;
+            padding: 3rem;
+            border-radius: 25px;
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .message-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: var(--gradient-1);
+        }
+
+        .message-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 70px rgba(0, 0, 0, 0.15);
+        }
+
+        .message-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .message-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .message-text {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .message-stat {
+            font-size: 3rem;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Loading */
+        .loading {
+            text-align: center;
+            padding: 5rem;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .footer-sources {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+            opacity: 0.7;
+            line-height: 1.8;
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            nav ul { display: none; }
+            .section { padding: 80px 5%; }
+            .chart-wrapper { padding: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">GIRL POWER 💪</div>
+            <ul>
+                <li><a href="#story">Notre histoire</a></li>
+                <li><a href="#data">Les chiffres</a></li>
+                <li><a href="#messages">Messages clés</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Girl Power en Corse</h1>
+            <p class="subtitle" id="heroSubtitle">Chargement des données...</p>
+        </div>
+    </section>
+
+    <!-- Loading -->
+    <div class="loading" id="loading">
+        📊 Chargement des données en cours...
+    </div>
+
+    <!-- Main Content -->
+    <div id="mainContent" style="display: none;">
+        
+        <!-- Section Histoire -->
+        <section id="story" class="section">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Une révolution en douceur</h2>
+                <p class="section-subtitle" id="storyText"></p>
+            </div>
+        </section>
+
+        <!-- Graphiques -->
+        <section class="section">
+            <div class="chart-wrapper fade-in">
+                <h3 class="chart-title">L'évolution de la féminisation (2018-2023)</h3>
+                <canvas id="genderChart"></canvas>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="chart-wrapper fade-in">
+                <h3 class="chart-title">Université Pascal Paoli vs Autres établissements</h3>
+                <canvas id="etablissementsChart"></canvas>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="chart-wrapper fade-in">
+                <h3 class="chart-title">Public vs Privé en 2022-2023</h3>
+                <canvas id="publicPrivateChart"></canvas>
+            </div>
+        </section>
+
+        <!-- Messages Clés -->
+        <section id="messages" class="section">
+            <div class="section-header fade-in">
+                <h2 class="section-title">Ce qu'il faut retenir</h2>
+            </div>
+            <div class="messages-grid" id="messagesGrid"></div>
+        </section>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <h3>SAE303 · Girl Power en Corse</h3>
+        <p>BUT MMI 2 · Université de Corse Pascal Paoli</p>
+        <div class="footer-sources" id="footerSources"></div>
+    </footer>
+
+    <script>
+        Chart.defaults.font.family = "'DM Sans', sans-serif";
+        Chart.defaults.color = '#666';
+
+        // Chargement JSON
+        fetch('data.json')
+            .then(response => response.json())
+            .then(data => {
+                console.log('✅ Données chargées:', data);
+                initApp(data);
+            })
+            .catch(error => {
+                console.error('❌ Erreur:', error);
+                document.getElementById('loading').innerHTML = 
+                    '⚠️ Erreur de chargement. Placez data.json dans le même dossier.';
+            });
+
+        function initApp(data) {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('mainContent').style.display = 'block';
+
+            document.getElementById('heroSubtitle').textContent = 
+                `${data.metadata.description} · ${data.metadata.periode}`;
+
+            const derniereAnnee = data.annees[data.annees.length - 1];
+            document.getElementById('storyText').innerHTML = `
+                Depuis ${data.annees[0].annee.split('-')[0]}, l'enseignement supérieur corse 
+                vit une transformation remarquable. En ${derniereAnnee.annee.split('-')[1]}, 
+                <strong>${derniereAnnee.femmes.taux.toFixed(1)}% des étudiants sont des étudiantes</strong>, 
+                soit ${derniereAnnee.femmes.total} femmes contre ${derniereAnnee.hommes.total} hommes. 
+                Cette évolution reflète un changement profond dans notre société où les jeunes femmes 
+                investissent massivement les études supérieures, portées par leur réussite scolaire 
+                et leur ambition de construire leur avenir.
+            `;
+
+            const years = data.annees.map(a => a.annee);
+            const femmes = data.annees.map(a => a.femmes.total);
+            const hommes = data.annees.map(a => a.hommes.total);
+            const upp = data.annees.map(a => a.etablissements.universite_pp);
+            const autres = data.annees.map(a => a.etablissements.autres);
+
+            createGenderChart(years, femmes, hommes);
+            createEtablissementsChart(years, upp, autres);
+            createPublicPrivateChart(derniereAnnee);
+            displayMessages(data.messages_cles);
+            displaySources(data.sources);
+            setupScrollAnimations();
+        }
+
+        function createGenderChart(years, femmes, hommes) {
+            const ctx = document.getElementById('genderChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Femmes',
+                        data: femmes,
+                        backgroundColor: '#E91E63',
+                        borderRadius: 10
+                    }, {
+                        label: 'Hommes',
+                        data: hommes,
+                        backgroundColor: '#9C27B0',
+                        borderRadius: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    animation: {
+                        duration: 2000,
+                        easing: 'easeOutQuart',
+                        delay: (context) => context.dataIndex * 100
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                font: { size: 16, weight: '600' },
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.85)',
+                            padding: 15,
+                            titleFont: { size: 16 },
+                            bodyFont: { size: 14 },
+                            callbacks: {
+                                label: function(context) {
+                                    const label = context.dataset.label;
+                                    const value = context.parsed.y;
+                                    const total = femmes[context.dataIndex] + hommes[context.dataIndex];
+                                    const pct = ((value / total) * 100).toFixed(1);
+                                    return `${label}: ${value} (${pct}%)`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: { stacked: true, grid: { display: false } },
+                        y: { stacked: true, grid: { color: 'rgba(0,0,0,0.05)' } }
+                    },
+                    interaction: { mode: 'index', intersect: false },
+                    onHover: (event, activeElements) => {
+                        event.native.target.style.cursor = activeElements.length ? 'pointer' : 'default';
+                    }
+                }
+            });
+        }
+
+        function createEtablissementsChart(years, upp, autres) {
+            const ctx = document.getElementById('etablissementsChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: years,
+                    datasets: [{
+                        label: 'Université Pascal Paoli',
+                        data: upp,
+                        borderColor: '#9C27B0',
+                        backgroundColor: 'rgba(156, 39, 176, 0.1)',
+                        borderWidth: 4,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 6,
+                        pointHoverRadius: 10,
+                        pointBackgroundColor: '#9C27B0',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 3
+                    }, {
+                        label: 'Autres établissements',
+                        data: autres,
+                        borderColor: '#FF6F00',
+                        backgroundColor: 'rgba(255, 111, 0, 0.1)',
+                        borderWidth: 4,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 6,
+                        pointHoverRadius: 10,
+                        pointBackgroundColor: '#FF6F00',
+                        pointBorderColor: '#fff',
+                        pointBorderWidth: 3
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    animation: {
+                        duration: 2500,
+                        easing: 'easeInOutQuart'
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'top',
+                            labels: {
+                                font: { size: 16, weight: '600' },
+                                padding: 20
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.85)',
+                            padding: 15
+                        }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, grid: { color: 'rgba(0,0,0,0.05)' } },
+                        x: { grid: { display: false } }
+                    },
+                    interaction: { mode: 'index', intersect: false }
+                }
+            });
+        }
+
+        function createPublicPrivateChart(derniereAnnee) {
+            const ctx = document.getElementById('publicPrivateChart').getContext('2d');
+            const publicVal = derniereAnnee.etablissements.public;
+            const priveVal = derniereAnnee.etablissements.prive;
+            const total = publicVal + priveVal;
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        `Public ${((publicVal/total)*100).toFixed(0)}%`,
+                        `Privé ${((priveVal/total)*100).toFixed(0)}%`
+                    ],
+                    datasets: [{
+                        data: [publicVal, priveVal],
+                        backgroundColor: ['#667eea', '#FF6F00'],
+                        borderWidth: 0,
+                        hoverOffset: 20
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    animation: {
+                        animateRotate: true,
+                        animateScale: true,
+                        duration: 2000,
+                        easing: 'easeOutBounce'
+                    },
+                    plugins: {
+                        legend: {
+                            display: true,
+                            position: 'bottom',
+                            labels: {
+                                font: { size: 16, weight: '600' },
+                                padding: 25
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0,0,0,0.85)',
+                            padding: 15,
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed;
+                                    return `${context.label}: ${value} étudiants`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function displayMessages(messages) {
+            const grid = document.getElementById('messagesGrid');
+            grid.innerHTML = messages.map(msg => `
+                <div class="message-card fade-in">
+                    <span class="message-emoji">${msg.emoji}</span>
+                    <h3 class="message-title">${msg.titre}</h3>
+                    <p class="message-text">${msg.texte}</p>
+                    <div class="message-stat">${msg.chiffre}</div>
+                    <div style="color: #888; margin-top: 0.5rem;">${msg.label}</div>
+                </div>
+            `).join('');
+        }
+
+        function displaySources(sources) {
+            document.getElementById('footerSources').innerHTML = `
+                <strong>Sources officielles :</strong><br>
+                ${sources.map(s => `• ${s}`).join('<br>')}
+            `;
+        }
+
+        function setupScrollAnimations() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.2,
+                rootMargin: '0px 0px -80px 0px'
+            });
+
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        }
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>

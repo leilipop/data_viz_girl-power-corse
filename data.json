@@ -1,0 +1,179 @@
+{
+  "metadata": {
+    "titre": "Girl Power en Corse",
+    "description": "L'enseignement supérieur corse au féminin",
+    "periode": "2018-2023",
+    "source": "Données OpenData Corsica & Académie de Corse"
+  },
+  "annees": [
+    {
+      "annee": "2018-2019",
+      "total": 2127,
+      "femmes": {
+        "total": 1191,
+        "universite_pp": 484,
+        "autres": 707,
+        "taux": 55.99
+      },
+      "hommes": {
+        "total": 936,
+        "universite_pp": 284,
+        "autres": 652,
+        "taux": 44.01
+      },
+      "etablissements": {
+        "universite_pp": 768,
+        "autres": 1359
+      }
+    },
+    {
+      "annee": "2019-2020",
+      "total": 2676,
+      "femmes": {
+        "total": 1656,
+        "universite_pp": 541,
+        "autres": 1115,
+        "taux": 61.88
+      },
+      "hommes": {
+        "total": 1020,
+        "universite_pp": 359,
+        "autres": 661,
+        "taux": 38.12
+      },
+      "etablissements": {
+        "universite_pp": 900,
+        "autres": 1776
+      }
+    },
+    {
+      "annee": "2020-2021",
+      "total": 10162,
+      "femmes": {
+        "total": 5934,
+        "universite_pp": 3625,
+        "autres": 2309,
+        "taux": 58.39
+      },
+      "hommes": {
+        "total": 4228,
+        "universite_pp": 2686,
+        "autres": 1542,
+        "taux": 41.61
+      },
+      "etablissements": {
+        "universite_pp": 6311,
+        "autres": 3851
+      }
+    },
+    {
+      "annee": "2021-2022",
+      "total": 9200,
+      "femmes": {
+        "total": 5266,
+        "universite_pp": 3691,
+        "autres": 1575,
+        "taux": 57.24
+      },
+      "hommes": {
+        "total": 3934,
+        "universite_pp": 2527,
+        "autres": 1407,
+        "taux": 42.76
+      },
+      "etablissements": {
+        "universite_pp": 6218,
+        "autres": 2982
+      }
+    },
+    {
+      "annee": "2022-2023",
+      "total": 4393,
+      "femmes": {
+        "total": 2733,
+        "universite_pp": 635,
+        "autres": 1263,
+        "public": 1886,
+        "prive": 847,
+        "taux": 62.21
+      },
+      "hommes": {
+        "total": 1660,
+        "universite_pp": 517,
+        "autres": 754,
+        "public": 1259,
+        "prive": 401,
+        "taux": 37.79
+      },
+      "etablissements": {
+        "universite_pp": 1152,
+        "autres": 2017,
+        "public": 3145,
+        "prive": 1248
+      }
+    }
+  ],
+  "messages_cles": [
+    {
+      "emoji": "👩‍🎓",
+      "titre": "Une révolution silencieuse",
+      "texte": "Aujourd'hui, 62% des étudiants corses sont des étudiantes ! Cette évolution reflète une transformation profonde de notre société où les femmes investissent massivement l'enseignement supérieur.",
+      "chiffre": "62%",
+      "label": "de femmes en 2023"
+    },
+    {
+      "emoji": "✈️",
+      "titre": "L'appel du continent",
+      "texte": "Chaque année, 35% de nos jeunes bacheliers quittent l'île pour poursuivre leurs études. Un exode qui interpelle et nous pousse à enrichir notre offre de formations.",
+      "chiffre": "35%",
+      "label": "partent sur le continent"
+    },
+    {
+      "emoji": "🏛️",
+      "titre": "Un bouleversement historique",
+      "texte": "L'Université Pascal Paoli a vu ses effectifs chuter de 82% entre 2021 et 2023. De 6 311 à 1 152 étudiants, c'est toute la carte universitaire corse qui se redessine.",
+      "chiffre": "-82%",
+      "label": "d'effectifs à l'UPP"
+    },
+    {
+      "emoji": "📈",
+      "titre": "Le privé prend son envol",
+      "texte": "Avec 1 248 étudiants en 2023, le secteur privé représente désormais 28% des effectifs. Écoles de commerce et formations spécialisées attirent de plus en plus de jeunes Corses.",
+      "chiffre": "28%",
+      "label": "dans le privé"
+    },
+    {
+      "emoji": "📚",
+      "titre": "Des choix encore genrés",
+      "texte": "Si les femmes dominent globalement, les filières restent très marquées : 84% en paramédical, mais seulement 30% en ingénierie. Les stéréotypes ont la vie dure.",
+      "chiffre": "84%",
+      "label": "de femmes en santé"
+    },
+    {
+      "emoji": "🎯",
+      "titre": "L'enjeu de demain",
+      "texte": "Créer de nouvelles formations, enrichir l'offre universitaire, retenir nos talents : voilà le défi que notre île doit relever pour construire l'avenir de sa jeunesse.",
+      "chiffre": "84%",
+      "label": "de mobilité étudiante"
+    }
+  ],
+  "contexte_national": {
+    "taux_feminisation_france": 56,
+    "taux_feminisation_corse": 62.21,
+    "mobilite_nationale": 58,
+    "mobilite_corse": 84,
+    "paramedical_femmes": 84,
+    "ingenieurs_femmes": 30,
+    "bac_femmes": 84,
+    "bac_hommes": 75
+  },
+  "sources": [
+    "Ministère de l'Enseignement Supérieur et de la Recherche (MESR-SIES, 2023-2024)",
+    "OpenData Corsica - Effectifs étudiants 2018-2024",
+    "Insee Corse & Académie de Corse (Mai 2024)",
+    "Observatoire des Inégalités (Nov 2025)",
+    "DEPP - Filles et garçons sur le chemin de l'égalité (2023)",
+    "STRATER 2022 - Schéma Régional Enseignement Supérieur Corse",
+    "Publication CEREQ - Les femmes dans l'enseignement supérieur (2023)"
+  ]
+}
